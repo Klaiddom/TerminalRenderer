@@ -1,19 +1,21 @@
 #include "../headers/screen.h"
 
 void Screen::init(){
-	std::cout << "\e[8;" << this->rows << ";" << this->columns << "t";
+	std::cout << "\e[8;" << this->rows << ";" << this->columns << "t" << std::endl;
 	this->hideCoursor();
 	this->clear();
 }
 
 void Screen::render(){
 	this->clear();
+	std::string out;
 	for(int i=0; i < this->rows; i++){
 		for(int j=0; j < this->columns; j++){
-			std::cout << this->view[i * columns + j];
+			out += this->view[i * columns + j];
 		}
-		std::cout << std::endl;
+		out += '\n';
 	}
+	std::cout << out;
 }
 
 void Screen::setPixel(char c, int w, int h){
