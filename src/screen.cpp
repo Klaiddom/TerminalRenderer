@@ -11,17 +11,20 @@ void Screen::render(){
 	std::string out;
 	for(int i=0; i < this->rows; i++){
 		for(int j=0; j < this->columns; j++){
-			out += this->view[i * columns + j];
+			out += this->color_prefix + std::to_string(color_ids[color_matrix[i * this->columns + j]]) + this->color_midfix;
+			out += this->view[i * this->columns + j];
+			out += this->color_postfix;
 		}
 		out += '\n';
 	}
 	std::cout << out;
 }
 
-void Screen::setPixel(char c, int w, int h){
+void Screen::setPixel(char c, int w, int h, int color_id){
 	if(w > this->rows || h > this->columns || w < 0 || h < 0)
 		return;
 	view[w * columns + h] = c;
+	color_matrix[w * columns + h] = color_id;
 }
 
 void Screen::clearLine(){
